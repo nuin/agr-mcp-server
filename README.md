@@ -235,6 +235,49 @@ LOG_LEVEL=INFO
 - **Staging**: `config/staging.yaml`
 - **Production**: `config/production.yaml`
 
+## 🤖 Claude Integration
+
+### Claude Code Integration
+
+Add the AGR MCP server to Claude Code by updating your configuration file:
+
+**Configuration Location:**
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Linux**: `~/.config/claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+**Configuration:**
+```json
+{
+  "mcpServers": {
+    "agr-genomics-enhanced": {
+      "command": "python3",
+      "args": ["/Users/nuin/Projects/alliance/agr-mcp-server/src/agr_server_enhanced.py"],
+      "cwd": "/Users/nuin/Projects/alliance/agr-mcp-server",
+      "env": {
+        "VIRTUAL_ENV": "/Users/nuin/Projects/alliance/agr-mcp-server/venv"
+      }
+    }
+  }
+}
+```
+
+**Usage Examples with Claude Code:**
+```
+# Natural language queries Claude can now handle:
+"Search for BRCA1 genes across all species"
+"Find disease associations for TP53"
+"Get orthology information for HGNC:1100"
+"BLAST this DNA sequence: ATCGATCGATCG"
+"Show me expression data for the CFTR gene"
+```
+
+### Claude Desktop Integration
+
+Use the same configuration as Claude Code above. After updating the config file, restart Claude Desktop to load the MCP server.
+
+**Available Tools:** 30+ genomics tools including gene search, disease associations, orthology analysis, BLAST searches, and expression data across 8 model organisms.
+
 ## 🌐 Alliance Integration
 
 This MCP server integrates with the full Alliance ecosystem:

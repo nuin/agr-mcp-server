@@ -716,6 +716,35 @@ async def list_tools() -> List[Tool]:
         )
     ]
 
+def create_text_response(text: str) -> CallToolResult:
+    """Create a properly formatted CallToolResult with TextContent."""
+    try:
+        # Ensure text is a string and not too long
+        if not isinstance(text, str):
+            text = str(text)
+        
+        # Limit text length to prevent issues
+        if len(text) > 10000:
+            text = text[:10000] + "\n... (truncated)"
+        
+        # Create TextContent properly
+        text_content = TextContent(type="text", text=text)
+        
+        # Create CallToolResult with proper list
+        result = CallToolResult(content=[text_content])
+        
+        logger.info(f"Created CallToolResult with content type: {type(result.content)}")
+        logger.info(f"Content list length: {len(result.content)}")
+        logger.info(f"First content item type: {type(result.content[0])}")
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error creating text response: {e}")
+        # Return a simple error response
+        error_content = TextContent(type="text", text=f"Error formatting response: {str(e)}")
+        return CallToolResult(content=[error_content])
+
 @server.call_tool()
 async def call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
     """Handle tool calls for the enhanced AGR MCP server."""
@@ -726,14 +755,12 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
             limit = arguments.get("limit", 20)
             offset = arguments.get("offset", 0)
             result = await agr_client.search_genes(query, limit=limit, offset=offset)
-            return CallToolResult(content=[TextContent(type="text", 
-                text=f"Gene search results for '{query}':\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Gene search results for '{query}':\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_gene_info":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_info(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Gene information for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Gene information for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_gene_summary":
             gene_id = arguments["gene_id"]
@@ -944,21 +971,19 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
         elif name == "get_download_links":
             data_type = arguments.get("data_type", "all")
             result = await agr_client.get_download_links(data_type)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Download links for {data_type}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Download links for {data_type}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "alliancemine_query":
             query_xml = arguments["query_xml"]
             result = await agr_client.alliancemine_query(query_xml)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"AllianceMine query results:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"AllianceMine query results:\n\n{json.dumps(result, indent=2)}")
 
         else:
-            return CallToolResult(content=[TextContent(type="text", text=f"Unknown tool: {name}")])
+            return create_text_response(f"Unknown tool: {name}")
 
     except Exception as e:
         logger.error(f"Error calling tool {name}: {e}")
-        return CallToolResult(content=[TextContent(type="text", text=f"Error calling tool {name}: {str(e)}")])
+        return create_text_response(f"Error calling tool {name}: {str(e)}")
 
 async def main():
     """Main function to run the enhanced AGR MCP server."""
