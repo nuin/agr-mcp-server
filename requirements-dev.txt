@@ -34,7 +34,7 @@ twine>=4.0.0
 wheel>=0.40.0
 
 # Debug tools
-pdb++>=0.10.0
+pdbpp>=0.10.0
 pudb>=2022.1.0
 
 # Performance monitoring

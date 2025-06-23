@@ -53,7 +53,7 @@ class EnhancedAGRClient:
         self.alliancemine_url = "https://www.alliancegenome.org/alliancemine"
         self.timeout = 30.0
         
-    async def _make_request(self, endpoint: str, params: Optional[Dict] = None, 
+    async def _make_request(self, endpoint: str, params: Optional[Dict] = None,
                            base_url: Optional[str] = None, method: str = "GET") -> Dict[str, Any]:
         """Make HTTP request to AGR API."""
         url = f"{base_url or self.base_url}/{endpoint.lstrip('/')}"
@@ -970,7 +970,8 @@ async def main():
             write_stream,
             InitializationOptions(
                 server_name="agr-genomics-enhanced",
-                server_version="2.0.0"
+                server_version="2.0.0",
+                capabilities={}
             )
         )
 
