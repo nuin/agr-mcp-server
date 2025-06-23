@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "agr-genomics-basic": {
+      "command": "python3",
+      "args": ["src/agr_server_basic.py"],
+      "cwd": "/Users/nuin/Projects/alliance/agr-mcp-server",
+      "env": {
+        "PYTHONPATH": "/Users/nuin/Projects/alliance/agr-mcp-server/venv/lib/python3.13/site-packages"
+      }
+    },
+    "agr-genomics-enhanced": {
+      "command": "python3",
+      "args": ["src/agr_server_enhanced.py"],
+      "cwd": "/Users/nuin/Projects/alliance/agr-mcp-server",
+      "env": {
+        "PYTHONPATH": "/Users/nuin/Projects/alliance/agr-mcp-server/venv/lib/python3.13/site-packages"
+      }
+    }
+  }
+}
