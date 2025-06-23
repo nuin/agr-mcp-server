@@ -765,146 +765,124 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
         elif name == "get_gene_summary":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_summary(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Gene summary for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Gene summary for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         # Allele and Variant Functions
         elif name == "get_gene_alleles":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_alleles(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Alleles for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Alleles for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_allele_info":
             allele_id = arguments["allele_id"]
             result = await agr_client.get_allele_info(allele_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Allele information for {allele_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Allele information for {allele_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_gene_variants":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_variants(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Variants for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Variants for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         # Disease and Phenotype Functions
         elif name == "get_gene_diseases":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_diseases(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Disease associations for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Disease associations for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_disease_info":
             disease_id = arguments["disease_id"]
             result = await agr_client.get_disease_info(disease_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Disease information for {disease_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Disease information for {disease_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_gene_phenotypes":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_phenotypes(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Phenotypes for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Phenotypes for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "search_diseases":
             query = arguments["query"]
             limit = arguments.get("limit", 20)
             result = await agr_client.search_diseases(query, limit=limit)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Disease search results for '{query}':\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Disease search results for '{query}':\n\n{json.dumps(result, indent=2)}")
 
         elif name == "search_phenotypes":
             query = arguments["query"]
             limit = arguments.get("limit", 20)
             result = await agr_client.search_phenotypes(query, limit=limit)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Phenotype search results for '{query}':\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Phenotype search results for '{query}':\n\n{json.dumps(result, indent=2)}")
 
         # Expression and Interaction Functions
         elif name == "get_gene_expression":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_expression(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Expression data for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Expression data for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_expression_ribbon_summary":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_expression_ribbon_summary(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Expression ribbon summary for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Expression ribbon summary for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_molecular_interactions":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_molecular_interactions(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Molecular interactions for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Molecular interactions for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_genetic_interactions":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_genetic_interactions(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Genetic interactions for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Genetic interactions for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         # Orthology Functions
         elif name == "find_orthologs":
             gene_id = arguments["gene_id"]
             result = await agr_client.find_orthologs(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Orthologs for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Orthologs for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_homologs_by_species":
             gene_id = arguments["gene_id"]
             species = arguments["species"]
             result = await agr_client.get_homologs_by_species(gene_id, species)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Homologs in {species} for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Homologs in {species} for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_paralogs":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_paralogs(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Paralogs for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Paralogs for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         # Gene Ontology Functions
         elif name == "get_gene_function":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_function(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Functional annotations for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Functional annotations for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_go_annotations":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_go_annotations(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"GO annotations for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"GO annotations for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "search_go_terms":
             query = arguments["query"]
             limit = arguments.get("limit", 20)
             result = await agr_client.search_go_terms(query, limit=limit)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"GO term search results for '{query}':\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"GO term search results for '{query}':\n\n{json.dumps(result, indent=2)}")
 
         # Pathway Functions
         elif name == "get_gene_pathways":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_pathways(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Pathways for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Pathways for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "search_pathways":
             query = arguments["query"]
             limit = arguments.get("limit", 20)
             result = await agr_client.search_pathways(query, limit=limit)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Pathway search results for '{query}':\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Pathway search results for '{query}':\n\n{json.dumps(result, indent=2)}")
 
         # Literature Functions
         elif name == "get_gene_literature":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_gene_literature(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Literature for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Literature for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "search_literature_textpresso":
             query = arguments["query"]
@@ -912,8 +890,7 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
             category = arguments.get("category", "gene")
             limit = arguments.get("limit", 20)
             result = await agr_client.search_literature_textpresso(query, species, category, limit)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Textpresso literature search for '{query}':\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Textpresso literature search for '{query}':\n\n{json.dumps(result, indent=2)}")
 
         # Sequence Functions
         elif name == "blast_sequence":
@@ -922,27 +899,23 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
             program = arguments.get("program", "blastn")
             max_target_seqs = arguments.get("max_target_seqs", 50)
             result = await agr_client.blast_sequence(sequence, database, program, max_target_seqs)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"BLAST results:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"BLAST results:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_gene_sequence":
             gene_id = arguments["gene_id"]
             sequence_type = arguments.get("sequence_type", "genomic")
             result = await agr_client.get_gene_sequence(gene_id, sequence_type)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Sequence data for {gene_id} ({sequence_type}):\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Sequence data for {gene_id} ({sequence_type}):\n\n{json.dumps(result, indent=2)}")
 
         # Species Functions
         elif name == "get_species_list":
             result = await agr_client.get_species_list()
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Supported species:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Supported species:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_species_info":
             species_id = arguments["species_id"]
             result = await agr_client.get_species_info(species_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Species information for {species_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Species information for {species_id}:\n\n{json.dumps(result, indent=2)}")
 
         # JBrowse Functions
         elif name == "get_jbrowse_data":
@@ -951,21 +924,18 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
             start = arguments["start"]
             end = arguments["end"]
             result = await agr_client.get_jbrowse_data(species, chromosome, start, end)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"JBrowse data for {species} {chromosome}:{start}-{end}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"JBrowse data for {species} {chromosome}:{start}-{end}:\n\n{json.dumps(result, indent=2)}")
 
         # Transgenic Functions
         elif name == "get_transgenic_alleles":
             gene_id = arguments["gene_id"]
             result = await agr_client.get_transgenic_alleles(gene_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Transgenic alleles for {gene_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Transgenic alleles for {gene_id}:\n\n{json.dumps(result, indent=2)}")
 
         elif name == "get_construct_info":
             construct_id = arguments["construct_id"]
             result = await agr_client.get_construct_info(construct_id)
-            return CallToolResult(content=[TextContent(type="text",
-                text=f"Construct information for {construct_id}:\n\n{json.dumps(result, indent=2)}")])
+            return create_text_response(f"Construct information for {construct_id}:\n\n{json.dumps(result, indent=2)}")
 
         # Data Mining Functions
         elif name == "get_download_links":
